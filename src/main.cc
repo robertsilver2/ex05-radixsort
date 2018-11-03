@@ -15,5 +15,7 @@
 using edu::vcccd::vc::csv15::radixsort;
 
 int main(int argc, char *argv[]){
-    radixsort();
+    uint64_t array[] = {8, 6, 7, 5, 3, 0, 9};
+    uint64_t searchTarget = 6;
+    radixsort(array, searchTarget);
 }
