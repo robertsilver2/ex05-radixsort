@@ -29,6 +29,7 @@ namespace edu {
                     for(int i = 0; i<size; i++){
                         std::cout << "[" << array[i] << "]" << std::endl;
                     }
+                    std::cout << "\n \n" ;
                     //Following: multi dimensional array info from:
                     //http://www.cplusplus.com/doc/tutorial/arrays/
 
@@ -40,8 +41,16 @@ namespace edu {
                      *Look at answer by Mehrdad Afshari
                      */
 
+                    //Initialize dynamic multidimensional array
                     size_t width = 10;
                     size_t height = size;
+                    T** buckets = new T*[width];
+                    for(int i = 0; i<width; i++){
+                        buckets[i] = new T[height];
+                        for(int j = 0; j<height; j++){
+                            buckets[i][j]=0;
+                        }
+                    }
 
                     //DEBUG: print buckets, no values given
                     std::cout << "buckets, empty:" << std::endl;
@@ -52,6 +61,17 @@ namespace edu {
                         std::cout << std::endl;
                         std::cout << std::endl;
                     }
+
+                    //delete "buckets"
+                    for(int i = 0; i<width; i++){
+                        delete [] buckets[i];
+                    }
+                    delete [] buckets;
+                    buckets = NULL;
+                    //DEBUG
+                    std::cout << "goodbye, buckets." << std::endl;
+
+
 
 
 
