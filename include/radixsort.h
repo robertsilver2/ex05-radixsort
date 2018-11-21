@@ -69,7 +69,7 @@ namespace edu {
                     delete [] buckets;
                     buckets = NULL;
                     //DEBUG
-                    std::cout << "goodbye, buckets." << std::endl;
+                    std::cout << "goodbye, buckets.... (strong bad voice) DELETED" << std::endl;
 
 
 
