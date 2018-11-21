@@ -15,7 +15,8 @@
 using edu::vcccd::vc::csv15::radixsort;
 
 int main(int argc, char *argv[]){
-    uint64_t array[] = {8, 6, 7, 5, 3, 0, 9};
-    uint64_t searchTarget = 6;
-    radixsort(array, searchTarget);
+    uint64_t array[] = {1819, 778, 1761, 471, 65, 604, 302, 1300, 299, 1603, 202};
+    //array generated @ https://www.random.org/integer-sets/
+    size_t size = 25;
+    radixsort(array, size);
 }

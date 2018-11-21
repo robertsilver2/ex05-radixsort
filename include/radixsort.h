@@ -24,7 +24,12 @@ namespace edu {
 
                 template<typename T>
                 void radixsort(T array[], size_t size){
-                    std::cout << "Hello!" <<std::endl;
+                    //DEBUG: print array
+                    for(int i = 0; i<size; i++){
+                        std::cout << "[" << array[i] << "]" << std::endl;
+                    }
+
+
                 }
             }
         }
