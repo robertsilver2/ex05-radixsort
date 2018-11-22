@@ -26,8 +26,8 @@ namespace edu {
 
                 template<typename T>
                 int getdigits(T number) {
-                    //DEBUG:
-                    std::cout << " number = " << number << std::endl;
+                    /*//DEBUG:
+                    std::cout << " number = " << number << std::endl;*/
                     if (number == 0) {
                         return (1);
                     }else{
@@ -36,8 +36,8 @@ namespace edu {
                             numdig++;
                             number/=10;
                         }
-                        //DEBUG:
-                        std::cout << "number of digits = " << numdig << "\n" << std::endl;
+                        /*//DEBUG:
+                        std::cout << "number of digits = " << numdig << "\n" << std::endl;*/
                         return(numdig);
                     }
                 }
@@ -68,16 +68,21 @@ namespace edu {
                 }
 
                 template<typename T>
-                void printBuckets(T** buckets, size_t width, size_t height){
-                    //DEBUG: print buckets, no values given
-                    std::cout << "buckets, empty:" << std::endl;
+                void append(T** buckets, int index, T number){
+                    int place = 0;
+                    while(buckets[index][place]!=NULL){
+                        place+=1;
+                    }
+                    buckets[index][place]=number;
+                }
+
+                template<typename T>
+                void makeNull(T** buckets, size_t width, size_t height){
                     for(int i = 0; i<width; i++){
-                        std::cout << " bucket " << i << ": ";
-                        for(int j = 0; j<height; j++) {
-                            std::cout << " [" << buckets[i][j] << "] ";
+                        buckets[i] = new T[height];
+                        for(int j = 0; j<height; j++){
+                            buckets[i][j]=NULL;
                         }
-                        std::cout << std::endl;
-                        std::cout << std::endl;
                     }
                 }
 
@@ -96,17 +101,16 @@ namespace edu {
 
                 template<typename T>
                 void radixsort(T array[], size_t size){
-                    //DEBUG: print unsorted input array
                     std::cout << "unsorted:" << std::endl;
-                    for(int i = 0; i<size; i++){
-                        std::cout << "[" << array[i] << "]" << std::endl;
-                    }
-                    std::cout << "\n \n" ;
+                    //DEBUG: print unsorted input array
+                    printarray(array, size);
 
                     int max = maxdigits(array, size);
                     //DEBUG:
                     std::cout << "max = " << max << std::endl;
+
                     int pow10 = pow(10, 0);  //just being fancy
+                    //DEBUG:
                     std::cout << "pow10 = " << pow10 << std::endl;
                     //http://www.cplusplus.com/reference/cmath/pow/
 
@@ -114,12 +118,7 @@ namespace edu {
                     size_t width = 10;
                     size_t height = size;
                     T** buckets = new T*[width];
-                    for(int i = 0; i<width; i++){
-                        buckets[i] = new T[height];
-                        for(int j = 0; j<height; j++){
-                            buckets[i][j]=NULL;
-                        }
-                    }
+                    makeNull(buckets, width, height);
                     //Preceding: multi dimensional array info from:
                     //http://www.cplusplus.com/doc/tutorial/arrays/
                     /* notes on dynamic array allocation
@@ -132,22 +131,55 @@ namespace edu {
 
                     printBuckets(buckets, width, height);
 
-                    for(int i = 0; i < max; i++ ){
-                        //DEBUG:
+                    int arrayInd = 0;
+                    for(int digIndex = 0; digIndex < max; digIndex++ ){
                         std::cout << "pow10 = " << pow10 << std::endl;
-                        for(int j = 0; j < size; j++){
-                            //DEBUG:
-                            std::cout << "array [" << j << "] = " << array[j];
-                            int buckPlace = lowdig(array[j], pow10);
-                            std::cout << ", and bucket place is '" << buckPlace << "' " << std::endl;
+                        for(int i = 0; i < size; i++){
+                            int buckPlace = lowdig(array[i], pow10);
+                            append(buckets, buckPlace, array[i]);
                         }
-                        pow10*=10;
 
+                        for(int i = 0; i<10; i++){
+                            int j = 0;
+                            while(buckets[i][j] != NULL){
+                                array[arrayInd] = buckets[i][j];
+                                arrayInd++;
+                                j++;
+                            }
+                        }
+
+                        pow10 = pow10 * 10;
+                        //DEBUG:
+                        printarray(array, size);
+                        printBuckets(buckets, width, height);
+                        makeNull(buckets, width, height);
                     }
-
-
-
                     clear(buckets, width);
+                }
+
+                //DEBUG: functions
+                template<typename T>
+                void printarray(T array[], size_t size){
+                    //DEBUG: print unsorted input array
+                    std::cout << "array: ";
+                    for(int i = 0; i<size; i++){
+                        std::cout << array[i] << "  ";
+                    }
+                    std::cout << "\n \n" ;
+                }
+
+                template<typename T>
+                void printBuckets(T** buckets, size_t width, size_t height){
+                    //DEBUG: print buckets, no values given
+                    std::cout << "buckets, empty:" << std::endl;
+                    for(int i = 0; i<width; i++){
+                        std::cout << " bucket " << i << ": ";
+                        for(int j = 0; j<height; j++) {
+                            std::cout << " [" << buckets[i][j] << "] ";
+                        }
+                        std::cout << std::endl;
+                        std::cout << std::endl;
+                    }
                 }
             }
         }
