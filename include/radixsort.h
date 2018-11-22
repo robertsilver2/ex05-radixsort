@@ -21,6 +21,38 @@ namespace edu {
     namespace vcccd {
         namespace vc {
             namespace csv15 {
+                //radixsort: all functions
+
+                template<typename T>
+                int getdigits(T number) {
+                    //DEBUG:
+                    std::cout << " number = " << number << std::endl;
+                    if (number == 0) {
+                        return (1);
+                    }else{
+                        int numdig = 0;
+                        while(number!=0){
+                            numdig++;
+                            number/=10;
+                        }
+                        //DEBUG:
+                        std::cout << "number of digits = " << numdig << "\n" << std::endl;
+                        return(numdig);
+                    }
+                }
+
+                template<typename T>
+                void clear(T** buckets, size_t width,size_t  size){
+                    //delete "buckets"
+                    for(int i = 0; i<width; i++){
+                        delete [] buckets[i];
+                    }
+                    delete [] buckets;
+                    buckets = NULL;
+                    //DEBUG
+                    std::cout << "goodbye, buckets.... (strong bad voice) DELETED" << std::endl;
+
+                }
 
                 template<typename T>
                 void radixsort(T array[], size_t size){
@@ -40,6 +72,14 @@ namespace edu {
                      * https://stackoverflow.com/questions/936687/how-do-i-declare-a-2d-array-in-c-using-new/936702#936702
                      *Look at answer by Mehrdad Afshari
                      */
+
+                    //DEBUG: getdigits test
+                    getdigits(156239);
+                    getdigits(10);
+                    getdigits(1231);
+                    getdigits(0);
+                    getdigits(NULL);
+                    //getdigits(); //doesn't work, which makes sense
 
                     //Initialize dynamic multidimensional array
                     size_t width = 10;
@@ -64,19 +104,6 @@ namespace edu {
                     }
 
                     clear(buckets, width, size);
-                }
-
-                template<typename T>
-                void clear(T** buckets, size_t width,size_t  size){
-                    //delete "buckets"
-                    for(int i = 0; i<width; i++){
-                        delete [] buckets[i];
-                    }
-                    delete [] buckets;
-                    buckets = NULL;
-                    //DEBUG
-                    std::cout << "goodbye, buckets.... (strong bad voice) DELETED" << std::endl;
-
                 }
             }
         }
