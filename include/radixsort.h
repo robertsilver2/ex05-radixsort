@@ -42,6 +42,11 @@ namespace edu {
                 }
 
                 template<typename T>
+                int maxdigits(T array[], size_t size){
+                    return(getdigits(1000));
+                }
+
+                template<typename T>
                 void clear(T** buckets, size_t width,size_t  size){
                     //delete "buckets"
                     for(int i = 0; i<width; i++){
@@ -62,6 +67,11 @@ namespace edu {
                         std::cout << "[" << array[i] << "]" << std::endl;
                     }
                     std::cout << "\n \n" ;
+
+                    int max = maxdigits(array, size);
+                    //DEBUG:
+                    std::cout << "max = " << max << std::endl;
+
                     //Following: multi dimensional array info from:
                     //http://www.cplusplus.com/doc/tutorial/arrays/
 
@@ -72,15 +82,6 @@ namespace edu {
                      * https://stackoverflow.com/questions/936687/how-do-i-declare-a-2d-array-in-c-using-new/936702#936702
                      *Look at answer by Mehrdad Afshari
                      */
-
-                    //DEBUG: getdigits test
-                    getdigits(156239);
-                    getdigits(10);
-                    getdigits(1231);
-                    getdigits(0);
-                    getdigits(NULL);
-                    //getdigits(); //doesn't work, which makes sense
-
                     //Initialize dynamic multidimensional array
                     size_t width = 10;
                     size_t height = size;
