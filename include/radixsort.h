@@ -99,64 +99,6 @@ namespace edu {
 
                 }
 
-                template<typename T>
-                void radixsort(T array[], size_t size){
-                    std::cout << "unsorted:" << std::endl;
-                    //DEBUG: print unsorted input array
-                    printarray(array, size);
-
-                    int max = maxdigits(array, size);
-                    //DEBUG:
-                    std::cout << "max = " << max << std::endl;
-
-                    int pow10 = pow(10, 0);  //just being fancy
-                    //DEBUG:
-                    std::cout << "pow10 = " << pow10 << std::endl;
-                    //http://www.cplusplus.com/reference/cmath/pow/
-
-                    //Initialize dynamic multidimensional array
-                    size_t width = 10;
-                    size_t height = size;
-                    T** buckets = new T*[width];
-                    makeNull(buckets, width, height);
-                    //Preceding: multi dimensional array info from:
-                    //http://www.cplusplus.com/doc/tutorial/arrays/
-                    /* notes on dynamic array allocation
-                     *--single dimension:
-                     *http://www.fredosaurus.com/notes-cpp/newdelete/50dynamalloc.html
-                     *--2d:
-                     * https://stackoverflow.com/questions/936687/how-do-i-declare-a-2d-array-in-c-using-new/936702#936702
-                     *Look at answer by Mehrdad Afshari
-                     */
-
-                    printBuckets(buckets, width, height);
-
-                    int arrayInd = 0;
-                    for(int digIndex = 0; digIndex < max; digIndex++ ){
-                        std::cout << "pow10 = " << pow10 << std::endl;
-                        for(int i = 0; i < size; i++){
-                            int buckPlace = lowdig(array[i], pow10);
-                            append(buckets, buckPlace, array[i]);
-                        }
-
-                        for(int i = 0; i<10; i++){
-                            int j = 0;
-                            while(buckets[i][j] != NULL){
-                                array[arrayInd] = buckets[i][j];
-                                arrayInd++;
-                                j++;
-                            }
-                        }
-
-                        pow10 = pow10 * 10;
-                        //DEBUG:
-                        printarray(array, size);
-                        printBuckets(buckets, width, height);
-                        makeNull(buckets, width, height);
-                    }
-                    clear(buckets, width);
-                }
-
                 //DEBUG: functions
                 template<typename T>
                 void printarray(T array[], size_t size){
@@ -181,6 +123,66 @@ namespace edu {
                         std::cout << std::endl;
                     }
                 }
+
+                template<typename T>
+                void radixsort(T array[], size_t size){
+                    std::cout << "unsorted:" << std::endl;
+                    //DEBUG: print unsorted input array
+                    printarray(array, size);
+
+                    int max = maxdigits(array, size);
+                    //DEBUG:
+                    std::cout << "max = " << max << std::endl;
+
+                    int pow10 = pow(10, 0);  //just being fancy
+                    //DEBUG:
+                    std::cout << "pow10 = " << pow10 << std::endl;
+                    //http://www.cplusplus.com/reference/cmath/pow/
+
+                    //Initialize dynamic multidimensional array
+                    size_t width = 10;
+                    size_t height = size;
+                    T** buckets = new T*[width];
+                    //makeNull(buckets, width, height);
+                    //Preceding: multi dimensional array info from:
+                    //http://www.cplusplus.com/doc/tutorial/arrays/
+                    /* notes on dynamic array allocation
+                     *--single dimension:
+                     *http://www.fredosaurus.com/notes-cpp/newdelete/50dynamalloc.html
+                     *--2d:
+                     * https://stackoverflow.com/questions/936687/how-do-i-declare-a-2d-array-in-c-using-new/936702#936702
+                     *Look at answer by Mehrdad Afshari
+                     */
+
+                    //printBuckets(buckets, width, height);
+
+                    int arrayInd = 0;
+                    for(int digIndex = 0; digIndex < max; digIndex++ ){
+                        std::cout << "pow10 = " << pow10 << std::endl;
+                        for(int i = 0; i < size; i++){
+                            int buckPlace = lowdig(array[i], pow10);
+                            append(buckets, buckPlace, array[i]);
+                        }
+
+                        for(int i = 0; i<10; i++){
+                            int j = 0;
+                            while(buckets[i][j] != NULL){
+                                array[arrayInd] = buckets[i][j];
+                                arrayInd++;
+                                j++;
+                            }
+                        }
+
+                        pow10 = pow10 * 10;
+                        //DEBUG:
+                        printarray(array, size);
+                        printBuckets(buckets, width, height);
+                        //makeNull(buckets, width, height);
+                    }
+                    clear(buckets, width);
+                }
+
+
             }
         }
     }
