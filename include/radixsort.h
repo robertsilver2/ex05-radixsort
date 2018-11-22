@@ -55,6 +55,7 @@ namespace edu {
                     //DEBUG: print buckets, no values given
                     std::cout << "buckets, empty:" << std::endl;
                     for(int i = 0; i<width; i++){
+                        std::cout << " bucket " << i << ": ";
                         for(int j = 0; j<height; j++) {
                             std::cout << " [" << buckets[i][j] << "] ";
                         }
@@ -62,6 +63,11 @@ namespace edu {
                         std::cout << std::endl;
                     }
 
+                    clear(buckets, width, size);
+                }
+
+                template<typename T>
+                void clear(T** buckets, size_t width,size_t  size){
                     //delete "buckets"
                     for(int i = 0; i<width; i++){
                         delete [] buckets[i];
@@ -70,10 +76,6 @@ namespace edu {
                     buckets = NULL;
                     //DEBUG
                     std::cout << "goodbye, buckets.... (strong bad voice) DELETED" << std::endl;
-
-
-
-
 
                 }
             }
