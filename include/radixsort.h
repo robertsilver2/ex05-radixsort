@@ -43,7 +43,15 @@ namespace edu {
 
                 template<typename T>
                 int maxdigits(T array[], size_t size){
-                    return(getdigits(1000));
+                    int maximum = 0;
+                    for(int i=0; i<size; i++){
+                        int temp = getdigits(array[i]);
+                        if(temp > maximum){
+                            maximum = temp;
+                        }
+                    }
+                    return(maximum);
+
                 }
 
                 template<typename T>
