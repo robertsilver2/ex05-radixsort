@@ -16,6 +16,7 @@
 
 #include <cstdint>
 #include <iostream>
+#include <math.h>
 
 namespace edu {
     namespace vcccd {
@@ -54,6 +55,18 @@ namespace edu {
 
                 }
 
+
+                //int overload
+                int lowdig(int number, int pow){
+                    return(abs((number/pow)%10));
+                }
+
+                //templated overload
+                template<typename T>
+                int lowdig(T number, int pow){
+                    return((number/pow)%10);
+                }
+
                 template<typename T>
                 void clear(T** buckets, size_t width,size_t  size){
                     //delete "buckets"
@@ -79,6 +92,10 @@ namespace edu {
                     int max = maxdigits(array, size);
                     //DEBUG:
                     std::cout << "max = " << max << std::endl;
+                    int pow10 = pow(10, 0);  //just being fancy
+                    std::cout << "pow10 = " << pow10 << std::endl;
+                    //http://www.cplusplus.com/reference/cmath/pow/
+
 
                     //Following: multi dimensional array info from:
                     //http://www.cplusplus.com/doc/tutorial/arrays/
@@ -97,10 +114,9 @@ namespace edu {
                     for(int i = 0; i<width; i++){
                         buckets[i] = new T[height];
                         for(int j = 0; j<height; j++){
-                            buckets[i][j]=0;
+                            buckets[i][j]=NULL;
                         }
                     }
-
                     //DEBUG: print buckets, no values given
                     std::cout << "buckets, empty:" << std::endl;
                     for(int i = 0; i<width; i++){
@@ -111,6 +127,17 @@ namespace edu {
                         std::cout << std::endl;
                         std::cout << std::endl;
                     }
+
+                    for(int i = 0; i < max; i++ ){
+                        for(int j = 0; j < size; j++){
+                            //DEBUG:
+                            std::cout << "array [" << j << "] = " << array[j];
+                            int buckPlace = lowdig(array[j], pow10);
+                            std::cout << ", and bucket place is '" << buckPlace << "' " << std::endl;
+                        }
+                    }
+
+
 
                     clear(buckets, width, size);
                 }
