@@ -68,7 +68,21 @@ namespace edu {
                 }
 
                 template<typename T>
-                void clear(T** buckets, size_t width,size_t  size){
+                void printBuckets(T** buckets, size_t width, size_t height){
+                    //DEBUG: print buckets, no values given
+                    std::cout << "buckets, empty:" << std::endl;
+                    for(int i = 0; i<width; i++){
+                        std::cout << " bucket " << i << ": ";
+                        for(int j = 0; j<height; j++) {
+                            std::cout << " [" << buckets[i][j] << "] ";
+                        }
+                        std::cout << std::endl;
+                        std::cout << std::endl;
+                    }
+                }
+
+                template<typename T>
+                void clear(T** buckets, size_t width){
                     //delete "buckets"
                     for(int i = 0; i<width; i++){
                         delete [] buckets[i];
@@ -96,17 +110,6 @@ namespace edu {
                     std::cout << "pow10 = " << pow10 << std::endl;
                     //http://www.cplusplus.com/reference/cmath/pow/
 
-
-                    //Following: multi dimensional array info from:
-                    //http://www.cplusplus.com/doc/tutorial/arrays/
-
-                    /* notes on dynamic array allocation
-                     *--single dimension:
-                     *http://www.fredosaurus.com/notes-cpp/newdelete/50dynamalloc.html
-                     *--2d:
-                     * https://stackoverflow.com/questions/936687/how-do-i-declare-a-2d-array-in-c-using-new/936702#936702
-                     *Look at answer by Mehrdad Afshari
-                     */
                     //Initialize dynamic multidimensional array
                     size_t width = 10;
                     size_t height = size;
@@ -117,29 +120,34 @@ namespace edu {
                             buckets[i][j]=NULL;
                         }
                     }
-                    //DEBUG: print buckets, no values given
-                    std::cout << "buckets, empty:" << std::endl;
-                    for(int i = 0; i<width; i++){
-                        std::cout << " bucket " << i << ": ";
-                        for(int j = 0; j<height; j++) {
-                            std::cout << " [" << buckets[i][j] << "] ";
-                        }
-                        std::cout << std::endl;
-                        std::cout << std::endl;
-                    }
+                    //Preceding: multi dimensional array info from:
+                    //http://www.cplusplus.com/doc/tutorial/arrays/
+                    /* notes on dynamic array allocation
+                     *--single dimension:
+                     *http://www.fredosaurus.com/notes-cpp/newdelete/50dynamalloc.html
+                     *--2d:
+                     * https://stackoverflow.com/questions/936687/how-do-i-declare-a-2d-array-in-c-using-new/936702#936702
+                     *Look at answer by Mehrdad Afshari
+                     */
+
+                    printBuckets(buckets, width, height);
 
                     for(int i = 0; i < max; i++ ){
+                        //DEBUG:
+                        std::cout << "pow10 = " << pow10 << std::endl;
                         for(int j = 0; j < size; j++){
                             //DEBUG:
                             std::cout << "array [" << j << "] = " << array[j];
                             int buckPlace = lowdig(array[j], pow10);
                             std::cout << ", and bucket place is '" << buckPlace << "' " << std::endl;
                         }
+                        pow10*=10;
+
                     }
 
 
 
-                    clear(buckets, width, size);
+                    clear(buckets, width);
                 }
             }
         }
