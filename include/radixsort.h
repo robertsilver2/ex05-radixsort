@@ -125,7 +125,7 @@ namespace edu {
                 }
 
                 template<typename T>
-                void radixsort(T array[], size_t size){
+                void radixsort(T array[], size_t size) {
                     std::cout << "unsorted:" << std::endl;
                     //DEBUG: print unsorted input array
                     printarray(array, size);
@@ -142,31 +142,34 @@ namespace edu {
                     //Initialize dynamic multidimensional array
                     size_t width = 10;
                     size_t height = size;
-                    T** buckets = new T*[width];
-                    //makeNull(buckets, width, height);
-                    //Preceding: multi dimensional array info from:
-                    //http://www.cplusplus.com/doc/tutorial/arrays/
-                    /* notes on dynamic array allocation
-                     *--single dimension:
-                     *http://www.fredosaurus.com/notes-cpp/newdelete/50dynamalloc.html
-                     *--2d:
-                     * https://stackoverflow.com/questions/936687/how-do-i-declare-a-2d-array-in-c-using-new/936702#936702
-                     *Look at answer by Mehrdad Afshari
-                     */
 
-                    //printBuckets(buckets, width, height);
 
-                    int arrayInd = 0;
-                    for(int digIndex = 0; digIndex < max; digIndex++ ){
+                    for (int digCount = 0; digCount < max; digCount++) {
+                        T **buckets = new T *[width];
+                        makeNull(buckets, width, height);
+                        //Preceding: multi dimensional array info from:
+                        //http://www.cplusplus.com/doc/tutorial/arrays/
+                        /* notes on dynamic array allocation
+                         *--single dimension:
+                         *http://www.fredosaurus.com/notes-cpp/newdelete/50dynamalloc.html
+                         *--2d:
+                         * https://stackoverflow.com/questions/936687/how-do-i-declare-a-2d-array-in-c-using-new/936702#936702
+                         *Look at answer by Mehrdad Afshari
+                         */
+
+                        //printBuckets(buckets, width, height);
+
+
                         std::cout << "pow10 = " << pow10 << std::endl;
-                        for(int i = 0; i < size; i++){
+                        for (int i = 0; i < size; i++) {
                             int buckPlace = lowdig(array[i], pow10);
                             append(buckets, buckPlace, array[i]);
                         }
 
-                        for(int i = 0; i<10; i++){
+                        int arrayInd = 0;
+                        for (int i = 0; i < 10; i++) {
                             int j = 0;
-                            while(buckets[i][j] != NULL){
+                            while (buckets[i][j] != NULL) {
                                 array[arrayInd] = buckets[i][j];
                                 arrayInd++;
                                 j++;
@@ -177,12 +180,12 @@ namespace edu {
                         //DEBUG:
                         printarray(array, size);
                         printBuckets(buckets, width, height);
-                        //makeNull(buckets, width, height);
+
+                        clear(buckets, width);
+                        std::cout << "buckets cleared" << std::endl;
                     }
-                    clear(buckets, width);
+                    std::cout << "gtest left for loop end before leave radix fail here?" << std::endl;
                 }
-
-
             }
         }
     }

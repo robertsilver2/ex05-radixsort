@@ -19,4 +19,7 @@ int main(int argc, char *argv[]){
     //array generated @ https://www.random.org/integer-sets/
     size_t size = 11;
     radixsort(array, size);
+    std::cout << "radixsort left" << std::endl;
+    std::cout << "return 0" << std::endl;
+    return(0);
 }
