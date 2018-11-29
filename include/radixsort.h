@@ -125,7 +125,21 @@ namespace edu {
                 }
 
                 template<typename T>
+                int checknull(T array[]){
+                    if(array==nullptr){
+                        return(-1);
+                    }
+                    return(1);
+                }
+
+                template<typename T>
                 void radixsort(T array[], size_t size) {
+                    int check = checknull(array);
+                    if(check == -1){
+                        std::cout << "array is Null" << std::endl;
+                        return;
+                    }
+
                     std::cout << "unsorted:" << std::endl;
                     //DEBUG: print unsorted input array
                     printarray(array, size);
@@ -134,7 +148,7 @@ namespace edu {
                     //DEBUG:
                     std::cout << "max = " << max << std::endl;
 
-                    int pow10 = pow(10, 0);  //just being fancy
+                    int pow10 = (int)pow(10, 0);  //just being fancy
                     //DEBUG:
                     std::cout << "pow10 = " << pow10 << std::endl;
                     //http://www.cplusplus.com/reference/cmath/pow/
