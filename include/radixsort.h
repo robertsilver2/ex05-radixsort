@@ -70,9 +70,9 @@ namespace edu {
                 }
 
                 template<typename T>
-                void append(T** buckets, int index, T number){
+                void append(T** buckets, int index, T number, size_t size){
                     int place = 0;
-                    while(buckets[index][place]!=NULL){
+                    while((buckets[index][place]!=NULL) && place < size){
                         place+=1;
                     }
                     buckets[index][place]=number;
@@ -180,13 +180,13 @@ namespace edu {
                         std::cout << "pow10 = " << pow10 << std::endl;
                         for (int i = 0; i < size; i++) {
                             int buckPlace = lowdig(array[i], pow10);
-                            append(buckets, buckPlace, array[i]);
+                            append(buckets, buckPlace, array[i], size);
                         }
 
                         int arrayInd = 0;
                         for (int i = 0; i < 10; i++) {
                             int j = 0;
-                            while (buckets[i][j] != NULL) {
+                            while ((buckets[i][j] != NULL) && j < size) {
                                 array[arrayInd] = buckets[i][j];
                                 arrayInd++;
                                 j++;
