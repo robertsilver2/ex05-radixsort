@@ -15,11 +15,15 @@
 using edu::vcccd::vc::csv15::radixsort;
 
 int main(int argc, char *argv[]){
+
     uint64_t array[] = {1819, 778, 1761, 471, 65, 604, 302, 1300, 299, 1603, 202};
     //array generated @ https://www.random.org/integer-sets/
     size_t size = 11;
     radixsort(array, size);
+    //radixsort(nullptr);
+    radixsort<int>(nullptr, size);
+
     std::cout << "radixsort left" << std::endl;
-    std::cout << "return 0" << std::endl;
-    return(0);
+    std::cout << "exit 0" << std::endl;
+    exit(0);
 }

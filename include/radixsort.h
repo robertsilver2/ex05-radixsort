@@ -22,6 +22,8 @@ namespace edu {
     namespace vcccd {
         namespace vc {
             namespace csv15 {
+
+
                 //radixsort: all functions
 
                 template<typename T>
@@ -68,9 +70,9 @@ namespace edu {
                 }
 
                 template<typename T>
-                void append(T** buckets, int index, T number){
+                void append(T** buckets, int index, T number, size_t size){
                     int place = 0;
-                    while(buckets[index][place]!=NULL){
+                    while((buckets[index][place]!=NULL) && place < size){
                         place+=1;
                     }
                     buckets[index][place]=number;
@@ -121,11 +123,26 @@ namespace edu {
                         }
                         std::cout << std::endl;
                         std::cout << std::endl;
+                        //add
                     }
                 }
 
                 template<typename T>
+                int checknull(T array[]){
+                    if(array==nullptr){
+                        return(-1);
+                    }
+                    return(1);
+                }
+
+                template<typename T>
                 void radixsort(T array[], size_t size) {
+                    int check = checknull(array);
+                    if(check == -1){
+                        std::cout << "array is Null" << std::endl;
+                        return;
+                    }
+
                     std::cout << "unsorted:" << std::endl;
                     //DEBUG: print unsorted input array
                     printarray(array, size);
@@ -134,7 +151,7 @@ namespace edu {
                     //DEBUG:
                     std::cout << "max = " << max << std::endl;
 
-                    int pow10 = pow(10, 0);  //just being fancy
+                    int pow10 = (int)pow(10, 0);  //just being fancy
                     //DEBUG:
                     std::cout << "pow10 = " << pow10 << std::endl;
                     //http://www.cplusplus.com/reference/cmath/pow/
@@ -163,13 +180,13 @@ namespace edu {
                         std::cout << "pow10 = " << pow10 << std::endl;
                         for (int i = 0; i < size; i++) {
                             int buckPlace = lowdig(array[i], pow10);
-                            append(buckets, buckPlace, array[i]);
+                            append(buckets, buckPlace, array[i], size);
                         }
 
                         int arrayInd = 0;
                         for (int i = 0; i < 10; i++) {
                             int j = 0;
-                            while (buckets[i][j] != NULL) {
+                            while ((buckets[i][j] != NULL) && j < size) {
                                 array[arrayInd] = buckets[i][j];
                                 arrayInd++;
                                 j++;
